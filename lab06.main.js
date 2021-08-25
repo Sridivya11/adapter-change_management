@@ -191,34 +191,13 @@ healthcheck(callback) {
      * Note how the object was instantiated in the constructor().
      * get() takes a callback function.
      */
-
-      this.connector.get((data, error) => {
+     this.connector.get((data, error) => {
             if (error) {
-                // console.error(`\nError returned from GET request:\n${JSON.stringify(error)}`);
-                callback(null, error);
-            } else {
-                console.log(`\nResponse returned from GET request:\n${JSON.stringify(data)}`)
-                if (typeof data == 'object' && 'body' in data) {
-                    const body = JSON.parse(data.body);
-                    const array = body.result
-                    let returnData = []
-                    array.forEach(element => {
-                        const { number: change_ticket_number, active, priority, description, work_start, work_end, sys_id: change_ticket_key } = element
-                        const obj = {
-                        change_ticket_number,
-                        active,
-                        priority,
-                        description,
-                        work_start,
-                        work_end, 
-                        change_ticket_key
-                        }
-                        returnData.push(obj)
-                    });
-                    callback(returnData, null)
-                }
+                console.error(`\nError returned from GET request:\n${JSON.stringify(error)}`);
             }
+            console.log(`\nResponse returned from GET request:\n${JSON.stringify(data)}`)
         });
+
   }
 
   /**
@@ -237,33 +216,13 @@ healthcheck(callback) {
      * Note how the object was instantiated in the constructor().
      * post() takes a callback function.
      */
-
-      this.connector.post((data, error) => {
+     this.connector.post((data, error) => {
             if (error) {
-                // console.error(`\nError returned from POST request:\n${JSON.stringify(error)}`);
-                 callback(data, error);
-            } else {
-                console.log(`\nResponse returned from POST request:\n${JSON.stringify(data)}`)
-                if (typeof data == 'object' && 'body' in data) {
-                    const body = JSON.parse(data.body);
-                    const result = body.result;
-                    const { number: change_ticket_number, active, priority, description, work_start, work_end, sys_id: change_ticket_key } = result;
-                    const obj = {
-                    change_ticket_number,
-                    active,
-                    priority,
-                    description,
-                    work_start,
-                    work_end, 
-                    change_ticket_key
-                    };
-                    callback(obj, error);
-                }
+                console.error(`\nError returned from POST request:\n${JSON.stringify(error)}`);
             }
+            console.log(`\nResponse returned from POST request:\n${JSON.stringify(data)}`)
         });
   }
 }
-
-
 
 module.exports = ServiceNowAdapter;
